@@ -1,0 +1,18 @@
+<?php
+include 'config.php'; 
+function file_get_contents_curl($url) {
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+      curl_setopt($ch, CURLOPT_URL, $url);
+      $data = curl_exec($ch);
+      curl_close($ch);
+      return $data;
+}
+if (isset($_GET)) {
+  $SERVLET = $_GET['servlet'];
+  $data = $_GET['data'];
+  $url = $servlets_server_url."/".$SERVLET.'?data='.urlencode($data);
+  echo (file_get_contents_curl($url));
+ }
+?>
